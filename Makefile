@@ -9,18 +9,16 @@ BASE = $(GOPATH)/src/$(NAMESPACE)/$(PACKAGE)
 
 GO = go
 GOFMT = gofmt
+GOX = $(BIN)/gox
 GOLINT = $(BIN)/golint
-GOCOVMERGE = $(BIN)/gocovmerge
-GOCOV = $(BIN)/gocov
 
-try:
-	echo $(PACKAGE)
-	echo $(NAMESPACE)
-
-build: deps fmt lint test
-	$(GO) build \
-		-ldflags '-X $(PACKAGE)/utils.Version=$(VERSION)' \
-		-o bin/$(PACKAGE)
+build: deps $(GOX) fmt lint test
+	$(GOX) \
+		-ldflags '-X $(NAMESPACE)/utils.Version=$(VERSION)' \
+		-gocmd="$(GO)" \
+		-output="bin/{{.Dir}}_{{.OS}}_{{.Arch}}" \
+		-os="darwin linux" \
+		-arch="amd64"
 
 clean:
 	rm -rf $(GOPATH) bin
@@ -44,3 +42,5 @@ $(BASE):
 $(GOLINT): $(BASE)
 	$(GO) get github.com/golang/lint/golint
 
+$(GOX): $(BASE)
+	$(GO) get github.com/mitchellh/gox
