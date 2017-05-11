@@ -1,2 +1,4 @@
 /.gopath
 /bin
+/vendor/
+/pkg/
