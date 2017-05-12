@@ -1,4 +1,4 @@
-name 'speculate'
+name 'REPLACE_ME_NAME'
 org 'akerl'
 
 source(
@@ -15,12 +15,12 @@ package(
   type: 'file',
   artifacts: [
     {
-      source: 'bin/speculate_darwin',
-      name: 'speculate_darwin'
+      source: "bin/#{@forge.name}_darwin",
+      name: "#{@forge.name}_darwin"
     },
     {
-      source: 'bin/speculate_linux',
-      name: 'speculate_linux'
+      source: "bin/#{@forge.name}_linux",
+      name: "#{@forge.name}_linux"
     }
   ]
 )
