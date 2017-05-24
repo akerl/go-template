@@ -1,5 +1,5 @@
 item do
-  name '::golang'
+  name 'go-template::golang'
 
   expected do
     github_tag
