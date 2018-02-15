@@ -1,4 +1,4 @@
-.PHONY: default build clean lint fmt test deps source
+.PHONY: default build clean lint fmt test deps source update
 
 PACKAGE = REPLACE_ME_NAME
 NAMESPACE = github.com/akerl
@@ -40,7 +40,15 @@ fmt:
 test: deps
 	cd $(BASE) && $(GO) test ./...
 
-deps: $(BASE) $(GODEP)
+Gopkg.toml: source $(GODEP)
+	cd $(BASE) && $(GODEP) init
+	cp $(BASE)/Gopkg.{lock,toml} ./
+
+update:
+	cd $(BASE) && $(GODEP) ensure -update
+	cp $(BASE)/Gopkg.{lock,toml} ./
+
+deps: source Gopkg.toml $(GODEP)
 	cd $(BASE) && $(GODEP) ensure
 
 $(BASE):
