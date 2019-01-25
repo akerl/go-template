@@ -1,7 +1,7 @@
 package main
 
 import (
-	"REPLACE_ME_PATH/cmd"
+	"github.com/akerl/go-template/cmd"
 )
 
 func main() {
